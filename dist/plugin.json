@@ -1,0 +1,31 @@
+{
+  "type": "panel",
+  "name": "Peak Report",
+  "id": "btplc-peak-report-panel",
+
+  "info": {
+    "version": "0.0.1",
+    "description": "Table panel showing peaks across series",
+    "author": {
+      "name": "BT Plc",
+      "url": "https://bt.com"
+    },
+    "keywords": ["peak", "report", "panel"],
+    "links": [
+      {"name": "MIT Licence", "url": "https://github.com/BTplc/grafana-plugins/blob/master/LICENSE"},
+      {"name": "Project Site", "url": "https://github.com/BTplc/grafana-plugins"}
+    ],
+    "screenshots": [
+      {"name": "Peak Report", "path": "src/img/peak_report.png"},
+      {"name": "Peak Report Options", "path": "src/img/peak_report_options.png"}
+    ],
+    "logos": {
+      "small": "img/logo.jpg"
+    }
+  },
+
+  "dependencies": {
+    "grafanaVersion": "3.x.x",
+    "plugins": [ ]
+  }
+}
