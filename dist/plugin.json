@@ -16,8 +16,8 @@
       {"name": "Project Site", "url": "https://github.com/BTplc/grafana-plugins"}
     ],
     "screenshots": [
-      {"name": "Peak Report", "path": "src/img/peak_report.png"},
-      {"name": "Peak Report Options", "path": "src/img/peak_report_options.png"}
+      {"name": "Peak Report", "path": "img/peak_report.png"},
+      {"name": "Peak Report Options", "path": "img/peak_report_options.png"}
     ],
     "logos": {
       "small": "img/logo.jpg"
