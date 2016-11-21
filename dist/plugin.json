@@ -12,15 +12,16 @@
     },
     "keywords": ["peak", "report", "panel"],
     "links": [
-      {"name": "MIT Licence", "url": "https://github.com/BTplc/grafana-plugins/blob/master/LICENSE"},
-      {"name": "Project Site", "url": "https://github.com/BTplc/grafana-plugins"}
+      {"name": "MIT Licence", "url": "https://github.com/BTplc/grafana-peak-report/blob/master/LICENSE"},
+      {"name": "Project Site", "url": "https://github.com/BTplc/grafana-peak-report"}
     ],
     "screenshots": [
       {"name": "Peak Report", "path": "img/peak_report.png"},
       {"name": "Peak Report Options", "path": "img/peak_report_options.png"}
     ],
     "logos": {
-      "small": "img/logo.jpg"
+      "small": "img/logo.jpg",
+      "large": "img/logo.jpg"
     }
   },
 
