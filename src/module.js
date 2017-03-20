@@ -1,8 +1,10 @@
 import _ from 'lodash'
 import kbn from 'app/core/utils/kbn'
+import * as fileExport from 'app/core/utils/file_export'
 import {MetricsPanelCtrl} from 'app/plugins/sdk'
 import {Builder} from './util/builder'
 import {Sorter} from './util/sorter'
+import {Exporter} from './util/exporter'
 
 const panelDefaults = {
   defaultColor: 'rgb(117, 117, 117)',
@@ -21,9 +23,11 @@ class Ctrl extends MetricsPanelCtrl {
     this.events.on('init-edit-mode', this.onInitEditMode.bind(this))
     this.events.on('data-received', this.onDataReceived.bind(this))
     this.events.on('render', this.onRender.bind(this))
+    this.events.on('init-panel-actions', this.onInitPanelActions.bind(this))
 
     this.builder = new Builder(this.panel)
     this.sorter = new Sorter(this.panel)
+    this.exporter = new Exporter(this.panel.columns)
     this.rows = []
   }
 
@@ -40,6 +44,10 @@ class Ctrl extends MetricsPanelCtrl {
   onRender () {
     this.rows = this.builder.call(this.seriesList)
     this.rows = this.sorter.sort(this.rows)
+  }
+
+  onInitPanelActions (actions) {
+    actions.push({text: 'Export CSV', click: 'ctrl.exportCSV()'})
   }
 
   onEditorAddColumnClick () {
@@ -69,6 +77,10 @@ class Ctrl extends MetricsPanelCtrl {
 
   sortIcon (index) {
     return this.sorter.icon(index)
+  }
+
+  exportCSV () {
+    fileExport.saveSaveBlob(this.exporter.call(this.rows), 'grafana_data_export')
   }
 }
 
