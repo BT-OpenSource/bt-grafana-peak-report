@@ -49,6 +49,22 @@ describe('Builder', function () {
       ])
     })
 
+    it('copes with large values', function () {
+      var list = [[100344595554.4224, 'ts'], [98668129366.496, 'ts']]
+      var seriesList = [
+        {
+          target: 'report.section.packets.rx',
+          datapoints: list
+        }
+      ]
+
+      expect(this.subject.call(seriesList)).toEqual([
+        {
+          name: 'report.section', cells: [[100344595554.4224, 'ts']]
+        }
+      ])
+    })
+
     it('copes with all nulls', function () {
       var seriesList = [
         {

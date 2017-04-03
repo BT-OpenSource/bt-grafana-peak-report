@@ -98,9 +98,9 @@ System.register(['lodash'], function (_export, _context) {
               return point[0] != null;
             });
             if (points.length === 0) return [null, null];
-            return _.max(points, function (point) {
-              return point[0];
-            });
+            return points.reduce(function (max, point) {
+              return point[0] > max[0] ? point : max;
+            }, points[0]);
           }
         }]);
 

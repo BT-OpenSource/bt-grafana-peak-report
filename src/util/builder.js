@@ -39,6 +39,6 @@ export class Builder {
   _maxPoint (points) {
     points = _.filter(points, point => point[0] != null)
     if (points.length === 0) return [null, null]
-    return _.max(points, (point) => point[0])
+    return points.reduce((max, point) => point[0] > max[0] ? point : max, points[0])
   }
 }

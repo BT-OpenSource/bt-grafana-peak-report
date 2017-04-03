@@ -1,9 +1,9 @@
 'use strict';
 
-System.register(['lodash', 'app/core/utils/kbn', 'app/plugins/sdk', './util/builder', './util/sorter'], function (_export, _context) {
+System.register(['lodash', 'app/core/utils/kbn', 'app/core/utils/file_export', 'app/plugins/sdk', './util/builder', './util/sorter', './util/exporter'], function (_export, _context) {
   "use strict";
 
-  var _, kbn, MetricsPanelCtrl, Builder, Sorter, _createClass, panelDefaults, Ctrl;
+  var _, kbn, fileExport, MetricsPanelCtrl, Builder, Sorter, Exporter, _createClass, panelDefaults, Ctrl;
 
   function _classCallCheck(instance, Constructor) {
     if (!(instance instanceof Constructor)) {
@@ -40,12 +40,16 @@ System.register(['lodash', 'app/core/utils/kbn', 'app/plugins/sdk', './util/buil
       _ = _lodash.default;
     }, function (_appCoreUtilsKbn) {
       kbn = _appCoreUtilsKbn.default;
+    }, function (_appCoreUtilsFile_export) {
+      fileExport = _appCoreUtilsFile_export;
     }, function (_appPluginsSdk) {
       MetricsPanelCtrl = _appPluginsSdk.MetricsPanelCtrl;
     }, function (_utilBuilder) {
       Builder = _utilBuilder.Builder;
     }, function (_utilSorter) {
       Sorter = _utilSorter.Sorter;
+    }, function (_utilExporter) {
+      Exporter = _utilExporter.Exporter;
     }],
     execute: function () {
       _createClass = function () {
@@ -88,9 +92,11 @@ System.register(['lodash', 'app/core/utils/kbn', 'app/plugins/sdk', './util/buil
           _this.events.on('init-edit-mode', _this.onInitEditMode.bind(_this));
           _this.events.on('data-received', _this.onDataReceived.bind(_this));
           _this.events.on('render', _this.onRender.bind(_this));
+          _this.events.on('init-panel-actions', _this.onInitPanelActions.bind(_this));
 
           _this.builder = new Builder(_this.panel);
           _this.sorter = new Sorter(_this.panel);
+          _this.exporter = new Exporter(_this.panel.columns);
           _this.rows = [];
           return _this;
         }
@@ -112,6 +118,11 @@ System.register(['lodash', 'app/core/utils/kbn', 'app/plugins/sdk', './util/buil
           value: function onRender() {
             this.rows = this.builder.call(this.seriesList);
             this.rows = this.sorter.sort(this.rows);
+          }
+        }, {
+          key: 'onInitPanelActions',
+          value: function onInitPanelActions(actions) {
+            actions.push({ text: 'Export CSV', click: 'ctrl.exportCSV()' });
           }
         }, {
           key: 'onEditorAddColumnClick',
@@ -147,6 +158,11 @@ System.register(['lodash', 'app/core/utils/kbn', 'app/plugins/sdk', './util/buil
           key: 'sortIcon',
           value: function sortIcon(index) {
             return this.sorter.icon(index);
+          }
+        }, {
+          key: 'exportCSV',
+          value: function exportCSV() {
+            fileExport.saveSaveBlob(this.exporter.call(this.rows), 'grafana_data_export');
           }
         }]);
 
