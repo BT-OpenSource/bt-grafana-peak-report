@@ -20,16 +20,16 @@
         <label class="gf-form-label width-10">Title</label>
         <input type="text" class="input-small gf-form-input width-9" ng-model="column.title" ng-change="ctrl.render()" ng-model-onblur=true/>
 
-        <label class="gf-form-label width-10">Regex</label>
+        <label class="gf-form-label width-8">Regex</label>
         <input type="text" class="input-small gf-form-input width-9" ng-model="column.regex" ng-change="ctrl.render()" ng-model-onblur=true/>
 
-        <label class="gf-form-label width-10">Peak Date</label>
+        <label class="gf-form-label width-8">Peak Date</label>
         <div class="input-small gf-form-input width-3">
           <input type="checkbox" ng-model="column.showDate" ng-change="ctrl.render()" ng-model-onblur=true/>
         </div>
         <br/>
 
-        <label class="gf-form-label width-10">Units</label>
+        <label class="gf-form-label width-8">Units</label>
 	<div class="dropdown width-15"
              ng-model="column.format"
              dropdown-typeahead="ctrl.unitFormats"
