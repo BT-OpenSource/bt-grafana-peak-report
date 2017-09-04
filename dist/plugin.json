@@ -4,7 +4,7 @@
   "id": "btplc-peak-report-panel",
 
   "info": {
-    "version": "0.0.3",
+    "version": "0.1.0",
     "description": "Table panel showing peaks across series",
     "author": {
       "name": "BT Plc",
