@@ -23,10 +23,10 @@
       <label class="gf-form-label">Regex</label>
       <input type="text" class="input-small gf-form-input width-10" ng-model="column.regex" ng-change="ctrl.render()"/>
 
-      <gf-form-switch class="gf-form" label="Date" checked="column.showDate" on-change="ctrl.render()"/>
+      <gf-form-switch style="display: flex" label="Date" checked="column.showDate" on-change="ctrl.render()"/>
 
       <label class="gf-form-label">Units</label>
-      <div class="dropdown width-10" ng-model="column.format" dropdown-typeahead2="ctrl.unitFormats" dropdown-typeahead-on-select="ctrl.onEditorFormatSelect($subItem, column)"/>
+      <div class="dropdown width-10" style="margin-right: .25rem" ng-model="column.format" dropdown-typeahead2="ctrl.unitFormats" dropdown-typeahead-on-select="ctrl.onEditorFormatSelect($subItem, column)"/>
 
       <label class="gf-form-label">
         <a class="pointer" ng-click="ctrl.onEditorRemoveColumn($index)">
