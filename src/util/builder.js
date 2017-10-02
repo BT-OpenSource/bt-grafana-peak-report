@@ -1,8 +1,8 @@
 import _ from 'lodash'
 
 export class Builder {
-  constructor (options) {
-    this.options = options
+  constructor (panel) {
+    this.panel = panel
   }
 
   call (seriesList = []) {
@@ -14,13 +14,13 @@ export class Builder {
   }
 
   _shortName (series) {
-    var nameComponents = this.options.nameComponents.split(',')
+    var nameComponents = this.panel.nameComponents.split(',')
     var components = series.target.split('.')
     return _.map(nameComponents, (nc) => components[parseInt(nc)]).join('.')
   }
 
   _cellsFor (rowSeries) {
-    return _.map(this.options.columns, (column) => {
+    return _.map(this.panel.columns, (column) => {
       var columnSeries = this._filterByColumn(column, rowSeries)
       return this._peakForColumn(columnSeries)
     })

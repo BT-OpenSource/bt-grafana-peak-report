@@ -9,10 +9,10 @@ var _createClass = function () { function defineProperties(target, props) { for 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var Exporter = exports.Exporter = function () {
-  function Exporter(columns) {
+  function Exporter(panel) {
     _classCallCheck(this, Exporter);
 
-    this.columns = columns;
+    this.panel = panel;
   }
 
   _createClass(Exporter, [{
@@ -27,9 +27,12 @@ var Exporter = exports.Exporter = function () {
     value: function _buildHeaders() {
       var headers = ['Name'];
 
-      this.columns.forEach(function (column) {
-        headers.push(column.title + ' (' + column.format + ')');
-        if (column.showDate) headers.push(column.title + ' (time)');
+      this.panel.columns.forEach(function (column) {
+        headers.push(column.title);
+
+        if (column.showDate) {
+          headers.push(column.title + ' (time)');
+        }
       });
 
       return headers.join();
@@ -44,7 +47,7 @@ var Exporter = exports.Exporter = function () {
       row.cells.forEach(function (cell, index) {
         line.push(cell[0]);
 
-        if (_this.columns[index].showDate) {
+        if (_this.panel.columns[index].showDate) {
           line.push(new Date(cell[1]).toISOString());
         }
       });

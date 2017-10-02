@@ -17,17 +17,13 @@ var _kbn2 = _interopRequireDefault(_kbn);
 
 var _file_export = require('app/core/utils/file_export');
 
-var fileExport = _interopRequireWildcard(_file_export);
-
 var _sdk = require('app/plugins/sdk');
 
 var _builder = require('./util/builder');
 
-var _sorter = require('./util/sorter');
-
 var _exporter = require('./util/exporter');
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+var _formatter = require('./util/formatter');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -41,9 +37,7 @@ var panelDefaults = {
   defaultColor: 'rgb(117, 117, 117)',
   decimals: 2,
   nameComponents: '1,2,3',
-  columns: [],
-  sortColumn: -1,
-  sortMultiplier: 1
+  columns: []
 };
 
 var Ctrl = function (_MetricsPanelCtrl) {
@@ -62,8 +56,9 @@ var Ctrl = function (_MetricsPanelCtrl) {
     _this.events.on('init-panel-actions', _this.onInitPanelActions.bind(_this));
 
     _this.builder = new _builder.Builder(_this.panel);
-    _this.sorter = new _sorter.Sorter(_this.panel);
-    _this.exporter = new _exporter.Exporter(_this.panel.columns);
+    _this.exporter = new _exporter.Exporter(_this.panel);
+    _this.formatter = new _formatter.Formatter(_this.panel, _kbn2.default);
+
     _this.rows = [];
     return _this;
   }
@@ -84,22 +79,22 @@ var Ctrl = function (_MetricsPanelCtrl) {
     key: 'onRender',
     value: function onRender() {
       this.rows = this.builder.call(this.seriesList);
-      this.rows = this.sorter.sort(this.rows);
+      this.rows = _lodash2.default.sortBy(this.rows, 'name');
     }
   }, {
     key: 'onInitPanelActions',
     value: function onInitPanelActions(actions) {
-      actions.push({ text: 'Export CSV', click: 'ctrl.exportCSV()' });
+      actions.push({ text: 'Export CSV', click: 'ctrl.onExportCSV()' });
     }
   }, {
-    key: 'onEditorAddColumnClick',
-    value: function onEditorAddColumnClick() {
-      this.panel.columns.push({ title: '', regex: '', format: 'none', showDate: false });
+    key: 'onEditorAddColumn',
+    value: function onEditorAddColumn() {
+      this.panel.columns.push({ format: 'none' });
       this.render();
     }
   }, {
-    key: 'onEditorRemoveColumnClick',
-    value: function onEditorRemoveColumnClick(index) {
+    key: 'onEditorRemoveColumn',
+    value: function onEditorRemoveColumn(index) {
       this.panel.columns.splice(index, 1);
       this.render();
     }
@@ -110,26 +105,9 @@ var Ctrl = function (_MetricsPanelCtrl) {
       this.render();
     }
   }, {
-    key: 'onColumnClick',
-    value: function onColumnClick(index) {
-      this.sorter.toggle(index);
-      this.render();
-    }
-  }, {
-    key: 'format',
-    value: function format(value, index) {
-      var column = this.panel.columns[index];
-      return _kbn2.default.valueFormats[column.format](value, this.panel.decimals, null);
-    }
-  }, {
-    key: 'sortIcon',
-    value: function sortIcon(index) {
-      return this.sorter.icon(index);
-    }
-  }, {
-    key: 'exportCSV',
-    value: function exportCSV() {
-      fileExport.saveSaveBlob(this.exporter.call(this.rows), 'grafana_data_export');
+    key: 'onExportCSV',
+    value: function onExportCSV() {
+      (0, _file_export.saveSaveBlob)(this.exporter.call(this.rows));
     }
   }]);
 

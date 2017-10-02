@@ -1,6 +1,6 @@
 export class Exporter {
-  constructor (columns) {
-    this.columns = columns
+  constructor (panel) {
+    this.panel = panel
   }
 
   call (rows) {
@@ -12,9 +12,12 @@ export class Exporter {
   _buildHeaders () {
     var headers = ['Name']
 
-    this.columns.forEach((column) => {
-      headers.push(column.title + ' (' + column.format + ')')
-      if (column.showDate) headers.push(column.title + ' (time)')
+    this.panel.columns.forEach((column) => {
+      headers.push(column.title)
+
+      if (column.showDate) {
+        headers.push(column.title + ' (time)')
+      }
     })
 
     return headers.join()
@@ -26,7 +29,7 @@ export class Exporter {
     row.cells.forEach((cell, index) => {
       line.push(cell[0])
 
-      if (this.columns[index].showDate) {
+      if (this.panel.columns[index].showDate) {
         line.push(new Date(cell[1]).toISOString())
       }
     })

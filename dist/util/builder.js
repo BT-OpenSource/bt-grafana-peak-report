@@ -16,10 +16,10 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var Builder = exports.Builder = function () {
-  function Builder(options) {
+  function Builder(panel) {
     _classCallCheck(this, Builder);
 
-    this.options = options;
+    this.panel = panel;
   }
 
   _createClass(Builder, [{
@@ -38,7 +38,7 @@ var Builder = exports.Builder = function () {
   }, {
     key: '_shortName',
     value: function _shortName(series) {
-      var nameComponents = this.options.nameComponents.split(',');
+      var nameComponents = this.panel.nameComponents.split(',');
       var components = series.target.split('.');
       return _lodash2.default.map(nameComponents, function (nc) {
         return components[parseInt(nc)];
@@ -49,7 +49,7 @@ var Builder = exports.Builder = function () {
     value: function _cellsFor(rowSeries) {
       var _this2 = this;
 
-      return _lodash2.default.map(this.options.columns, function (column) {
+      return _lodash2.default.map(this.panel.columns, function (column) {
         var columnSeries = _this2._filterByColumn(column, rowSeries);
         return _this2._peakForColumn(columnSeries);
       });

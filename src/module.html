@@ -2,35 +2,32 @@
   <div class="table-panel-header-bg"></div>
   <div class="table-panel-scroll">
     <table class="table-panel-table">
-      <thead>
-        <tr>
-          <th>
-            <div class="table-panel-table-header-inner pointer">
-              <span ng-click='ctrl.onColumnClick(-1)'>
-                Name &nbsp;&nbsp; <i ng-class="ctrl.sortIcon(-1)" />
-              </span>
-            </div>
-          </th>
-          <th ng-repeat="column in ctrl.panel.columns">
-            <div class="table-panel-table-header-inner pointer">
-              <span ng-click='ctrl.onColumnClick($index)'>
-                {{ column.title }} &nbsp; <i ng-class="ctrl.sortIcon($index)" />
-            </span>
-            </div>
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr ng-repeat="row in ctrl.rows">
-          <td>{{row.name}} </td>
-          <td ng-repeat="cell in row.cells track by $index">
-            {{ ctrl.format(cell[0], $index) }}<br />
-            <span ng-show='ctrl.panel.columns[$index].showDate'>
-              {{ cell[1] | date: 'dd MMM HH:mm:ss' }}
-            </span>
-          </td>
-        </tr>
-      </tbody>
+      <tr>
+        <th>
+          <div class="table-panel-table-header-inner pointer">
+            Name
+          </div>
+        </th>
+
+        <th ng-repeat="column in ctrl.panel.columns">
+          <div class="table-panel-table-header-inner pointer">
+            {{ column.title }}
+          </div>
+        </th>
+      </tr>
+
+      <tr ng-repeat="row in ctrl.rows">
+        <td>
+          {{row.name}} 
+        </td>
+
+        <td ng-repeat="cell in row.cells track by $index">
+          {{ ctrl.formatter.call(cell[0], $index) }}<br />
+          <span ng-show='ctrl.panel.columns[$index].showDate'>
+            {{ cell[1] | date: 'dd MMM HH:mm:ss' }}
+          </span>
+        </td>
+      </tr>
     </table>
   </div>
 </div>
