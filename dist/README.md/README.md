@@ -2,7 +2,7 @@
 
 A peak report panel for [Grafana](http://grafana.org/).
 
-![Peak Report Panel](https://raw.githubusercontent.com/BTplc/grafana-peak-report/master/src/img/peak_report.png)
+![Peak Report Panel](https://raw.githubusercontent.com/BT-OpenSource/bt-grafana-peak-report/master/src/img/peak_report.png)
 
 This panel shows a table that summarises multiple series into a report of peak values. Each row is formed by grouping series together using the first few components of the metric name. The cells for a row are calculated using some or all of its series, filtered by regex. The value for a cell is the maximum across all the series matching the column regex.
 
