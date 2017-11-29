@@ -40,13 +40,13 @@ var panelDefaults = {
   columns: []
 };
 
-var Ctrl = function (_MetricsPanelCtrl) {
-  _inherits(Ctrl, _MetricsPanelCtrl);
+var PanelCtrl = exports.PanelCtrl = function (_MetricsPanelCtrl) {
+  _inherits(PanelCtrl, _MetricsPanelCtrl);
 
-  function Ctrl($scope, $injector) {
-    _classCallCheck(this, Ctrl);
+  function PanelCtrl($scope, $injector) {
+    _classCallCheck(this, PanelCtrl);
 
-    var _this = _possibleConstructorReturn(this, (Ctrl.__proto__ || Object.getPrototypeOf(Ctrl)).call(this, $scope, $injector));
+    var _this = _possibleConstructorReturn(this, (PanelCtrl.__proto__ || Object.getPrototypeOf(PanelCtrl)).call(this, $scope, $injector));
 
     _lodash2.default.defaults(_this.panel, panelDefaults);
 
@@ -63,7 +63,7 @@ var Ctrl = function (_MetricsPanelCtrl) {
     return _this;
   }
 
-  _createClass(Ctrl, [{
+  _createClass(PanelCtrl, [{
     key: 'onInitEditMode',
     value: function onInitEditMode() {
       this.addEditorTab('Options', 'public/plugins/btplc-peak-report-panel/editor.html');
@@ -111,8 +111,7 @@ var Ctrl = function (_MetricsPanelCtrl) {
     }
   }]);
 
-  return Ctrl;
+  return PanelCtrl;
 }(_sdk.MetricsPanelCtrl);
 
-Ctrl.templateUrl = 'module.html';
-exports.PanelCtrl = Ctrl;
+PanelCtrl.templateUrl = 'module.html';
