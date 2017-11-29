@@ -13,7 +13,7 @@ const panelDefaults = {
   columns: []
 }
 
-class Ctrl extends MetricsPanelCtrl {
+export class PanelCtrl extends MetricsPanelCtrl {
   constructor ($scope, $injector) {
     super($scope, $injector)
     _.defaults(this.panel, panelDefaults)
@@ -69,5 +69,4 @@ class Ctrl extends MetricsPanelCtrl {
   }
 }
 
-Ctrl.templateUrl = 'module.html'
-export { Ctrl as PanelCtrl }
+PanelCtrl.templateUrl = 'module.html'
