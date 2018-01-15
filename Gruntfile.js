@@ -14,7 +14,7 @@ module.exports = function(grunt) {
       meta: {
         expand: true,
         src: ['README.md'],
-        dest: 'dist/README.md'
+        dest: 'dist'
       }
     },
 
